@@ -1,0 +1,127 @@
+Bandit Level 12 → Level 13
+Level Goal
+The password for the next level is stored in the file data.txt, which is a hexdump of a file that has been repeatedly compressed. For this level it may be useful to create a directory under /tmp in which you can work using mkdir. For example: mkdir /tmp/myname123. Then copy the datafile using cp, and rename it using mv (read the manpages!)
+
+Commands you may need to solve this level
+grep, sort, uniq, strings, base64, tr, tar, gzip, bzip2, xxd, mkdir, cp, mv, file
+
+#solutions
+
+┌─[username]─[~]
+└──╼ $ssh bandit12@bandit.labs.overthewire.org -p2220
+
+bandit12@bandit.labs.overthewire.org's password: JVNBBFSmZwKKOP0XbFXOoW8chDz5yVRv
+
+bandit12@bandit:~$ mkdir /tmp/level13
+
+bandit12@bandit:~$ cp data.txt /tmp/level13
+
+bandit12@bandit:~$ cd /tmp/level13
+
+bandit12@bandit:/tmp/level13$ ls
+data.txt
+
+bandit12@bandit:/tmp/level13$ file data.txt 
+data.txt: ASCII text
+
+bandit12@bandit:/tmp/level13$ cat data.txt 
+00000000: 1f8b 0808 2773 4564 0203 6461 7461 322e  ....'sEd..data2.
+00000010: 6269 6e00 0145 02ba fd42 5a68 3931 4159  bin..E...BZh91AY
+00000020: 2653 597b 4f96 5f00 0018 ffff fd6f e7ed  &SY{O._......o..
+00000030: bff7 bef7 9fdb d7ca ffbf edff 8ded dfd7  ................
+00000040: bfe7 bbff bfdb fbff ffbf ff9f b001 3b56  ..............;V
+00000050: 0400 0068 0064 3400 d341 a000 0680 0699  ...h.d4..A......
+
+bandit12@bandit:/tmp/level13$ ls
+data.txt
+
+bandit12@bandit:/tmp/level13$ xxd -r data.txt > data1
+
+bandit12@bandit:/tmp/level13$ ls
+data1  data.txt
+
+bandit12@bandit:/tmp/level13$ file data1
+data1: gzip compressed data, was "data2.bin", last modified: Sun Apr 23 18:04:23 2023, max compression, from Unix, original size modulo 2^32 581
+bandit12@bandit:/tmp/level13$ mv data1 data2.gz
+
+bandit12@bandit:/tmp/level13$ file data2.gz 
+data2.gz: gzip compressed data, was "data2.bin", last modified: Sun Apr 23 18:04:23 2023, max compression, from Unix, original size modulo 2^32 581
+
+bandit12@bandit:/tmp/level13$ gzip -d data2.gz 
+
+bandit12@bandit:/tmp/level13$ ls
+data2  data.txt
+
+bandit12@bandit:/tmp/level13$ file data2
+data2: bzip2 compressed data, block size = 900k
+
+bandit12@bandit:/tmp/level13$ mv data2 data3.bz
+
+bandit12@bandit:/tmp/level13$ file data3.bz 
+data3.bz: bzip2 compressed data, block size = 900k
+
+bandit12@bandit:/tmp/level13$ bzip2 -d data3.bz
+
+bandit12@bandit:/tmp/level13$ ls
+data3  data.txt
+
+bandit12@bandit:/tmp/level13$ file data3
+data3: gzip compressed data, was "data4.bin", last modified: Sun Apr 23 18:04:23 2023, max compression, from Unix, original size modulo 2^32 20480
+
+bandit12@bandit:/tmp/level13$ mv data3 data4.gz
+
+bandit12@bandit:/tmp/level13$ gzip -d data4.gz 
+
+bandit12@bandit:/tmp/level13$ ls
+data4  data.txt
+
+bandit12@bandit:/tmp/level13$ file data4
+data4: POSIX tar archive (GNU)
+
+bandit12@bandit:/tmp/level13$ tar -xf data4
+
+bandit12@bandit:/tmp/level13$ ls
+data4  data5.bin  data.txt
+
+bandit12@bandit:/tmp/level13$ file data5.bin 
+data5.bin: POSIX tar archive (GNU)
+
+bandit12@bandit:/tmp/level13$ tar -xf data5.bin
+
+bandit12@bandit:/tmp/level13$ ls
+data4  data5.bin  data6.bin  data.txt
+
+bandit12@bandit:/tmp/level13$ file data6.bin 
+data6.bin: bzip2 compressed data, block size = 900k
+
+bandit12@bandit:/tmp/level13$ mv data6.bin data7.bz
+
+bandit12@bandit:/tmp/level13$ file data7
+data7: POSIX tar archive (GNU)
+
+bandit12@bandit:/tmp/level13$ tar -xf data7
+
+bandit12@bandit:/tmp/level13$ ls
+data4  data5.bin  data7  data8.bin  data.txt
+
+bandit12@bandit:/tmp/level13$ file data8.bin 
+data8.bin: gzip compressed data, was "data9.bin", last modified: Sun Apr 23 18:04:23 2023, max compression, from Unix, original size modulo 2^32 49
+
+bandit12@bandit:/tmp/level13$ mv data8.bin data9.gz
+
+bandit12@bandit:/tmp/level13$ gzip -d data9.gz 
+
+bandit12@bandit:/tmp/level13$ ls
+data4  data5.bin  data7  data9  data.txt
+
+bandit12@bandit:/tmp/level13$ file data9
+data9: ASCII text
+
+bandit12@bandit:/tmp/level13$ cat data9
+The password is wbWdlBxEir4CaE8LaPhauuOo6pwRmrDw
+
+bandit12@bandit:/tmp/level13$ exit
+logout
+Connection to bandit.labs.overthewire.org closed.
+
+password = wbWdlBxEir4CaE8LaPhauuOo6pwRmrDw
