@@ -1,0 +1,34 @@
+Bandit Level 3 → Level 4
+Level Goal
+The password for the next level is stored in a hidden file in the inhere directory.
+
+Commands you may need to solve this level
+ls , cd , cat , file , du , find
+
+#solutions
+
+┌─[username]─[~]
+└──╼ $ssh bandit3@bandit.labs.overthewire.org -p2220
+
+bandit3@bandit.labs.overthewire.org's password: aBZ0W5EmUfAf7kHTQeOwd8bauFJ2lAiG
+
+bandit3@bandit:~$ ls
+inhere
+
+bandit3@bandit:~$ cd inhere
+
+bandit3@bandit:~/inhere$ ls
+bandit3@bandit:~/inhere$ ls -la
+total 12
+drwxr-xr-x 2 root    root    4096 Apr 23 18:04 .
+drwxr-xr-x 3 root    root    4096 Apr 23 18:04 ..
+-rw-r----- 1 bandit4 bandit3   33 Apr 23 18:04 .hidden
+
+bandit3@bandit:~/inhere$ cat ./.hidden 
+
+2EW7BBsr6aMMoJ2HjW067dm8EgX26xNe
+
+bandit3@bandit:~/inhere$ exit
+logout
+Connection to bandit.labs.overthewire.org closed.
+
