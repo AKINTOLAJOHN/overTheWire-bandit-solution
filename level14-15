@@ -1,0 +1,40 @@
+Bandit Level 14 → Level 15
+Level Goal
+The password for the next level can be retrieved by submitting the password of the current level to port 30000 on localhost.
+
+Commands you may need to solve this level
+ssh, telnet, nc, openssl, s_client, nmap
+
+#solutions
+
+┌─[username]─[~]
+└──╼ $ssh bandit14@bandit.labs.overthewire.org -p2220
+
+bandit14@bandit.labs.overthewire.org's password: fGrHPx402xGC7U7rXKDaxiWFTOiF0ENq
+
+bandit14@bandit:~$ nmap localhost 
+Starting Nmap 7.80 ( https://nmap.org ) at 2023-05-29 11:20 UTC
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00019s latency).
+Not shown: 994 closed ports
+PORT      STATE SERVICE
+22/tcp    open  ssh
+1111/tcp  open  lmsocialserver
+1840/tcp  open  netopia-vo2
+4321/tcp  open  rwhois
+8000/tcp  open  http-alt
+30000/tcp open  ndmps
+
+Nmap done: 1 IP address (1 host up) scanned in 0.12 seconds
+
+bandit14@bandit:~$ nc localhost 30000
+fGrHPx402xGC7U7rXKDaxiWFTOiF0ENq
+Correct!
+jN2kgmIXJ6fShzhT2avhotn4Zcka6tnt
+
+
+bandit14@bandit:~$ exit
+logout
+Connection to bandit.labs.overthewire.org closed.
+
+password = jN2kgmIXJ6fShzhT2avhotn4Zcka6tnt
