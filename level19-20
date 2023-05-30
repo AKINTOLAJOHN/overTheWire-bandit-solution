@@ -1,0 +1,38 @@
+Bandit Level 19 → Level 20
+Level Goal
+To gain access to the next level, you should use the setuid binary in the homedirectory. Execute it without arguments to find out how to use it. The password for this level can be found in the usual place (/etc/bandit_pass), after you have used the setuid binary.
+
+#solutions
+
+┌─[username]─[~]
+└──╼ $ssh bandit19@bandit.labs.overthewire.org -p 2220 
+
+bandit19@bandit.labs.overthewire.org's password: awhqfNnAbc1naukrpqDYcF95h7HoMTrC
+
+bandit19@bandit:~$ ls -la
+total 36
+drwxr-xr-x  2 root     root      4096 Apr 23 18:04 .
+drwxr-xr-x 70 root     root      4096 Apr 23 18:05 ..
+-rwsr-x---  1 bandit20 bandit19 14876 Apr 23 18:04 bandit20-do
+-rw-r--r--  1 root     root       220 Jan  6  2022 .bash_logout
+-rw-r--r--  1 root     root      3771 Jan  6  2022 .bashrc
+-rw-r--r--  1 root     root       807 Jan  6  2022 .profile
+
+bandit19@bandit:~$ ./bandit20-do file /etc/bandit_pass/*
+/etc/bandit_pass/bandit16: regular file, no read permission
+/etc/bandit_pass/bandit17: regular file, no read permission
+/etc/bandit_pass/bandit18: regular file, no read permission
+/etc/bandit_pass/bandit19: regular file, no read permission
+/etc/bandit_pass/bandit2:  regular file, no read permission
+/etc/bandit_pass/bandit20: ASCII text
+/etc/bandit_pass/bandit21: regular file, no read permission
+/etc/bandit_pass/bandit22: regular file, no read permission
+
+bandit19@bandit:~$ ./bandit20-do cat /etc/bandit_pass/bandit20
+VxCazJaVykI6W36BkBU0mJTCM8rR95XT
+
+bandit19@bandit:~$ exit
+logout
+Connection to bandit.labs.overthewire.org closed.
+
+password = VxCazJaVykI6W36BkBU0mJTCM8rR95XT

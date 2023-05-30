@@ -10,7 +10,7 @@ solutions
 ┌─[username]─[~]
 └──╼ $ssh bandit18@bandit.labs.overthewire.org -p 2220 -t "/bin/sh"
 
-bandit16@bandit.labs.overthewire.org's password: hga5tuuCLF6fFzUpnagiMN8ssu9LFrdg
+bandit18@bandit.labs.overthewire.org's password: hga5tuuCLF6fFzUpnagiMN8ssu9LFrdg
 
 $ ls
 readme
